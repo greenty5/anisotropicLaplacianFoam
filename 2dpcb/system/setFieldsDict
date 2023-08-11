@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2306                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
+);
+
+regions
+(
+    // Set cell values
+    // (does zerogradient on boundaries)
+    boxToCell
+    {
+        //box (0 0 0) (0.1 0.00009 0.1);
+        box (0 0.15e-3 0) (0.1 1.05e-3 0.1);
+
+        fieldValues
+        (
+        	volSymmTensorFieldValue	DDT (0.9 0 0 0.3 0 0.9)
+        );
+    }
+);
+
+// ************************************************************************* //
