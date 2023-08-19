@@ -10,29 +10,41 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      fvSolution;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
-);
-
-regions
-(
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
+solvers
+{
+    T
     {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
-
-        fieldValues
-        (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
-        );
+        solver          PCG;
+        preconditioner  DIC;
+        tolerance       1e-06;
+        relTol          0.05;
     }
-);
+}
+
+SIMPLE
+{
+	nNonOrthogonalCorrectors	2;
+}
+
+PISO
+{
+    nCorrectors     2;
+    nNonOrthogonalCorrectors 0;
+    pRefCell        0;
+    pRefValue       0;
+}
+
+boundaryField
+{
+	"(9 10 24 23)"
+	{
+		type	fixedValue;
+		value	uniform 80;	
+	}
+}
 
 // ************************************************************************* //

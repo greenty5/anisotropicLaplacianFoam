@@ -38,7 +38,7 @@ boundaryField
         #{
             const scalar T_inf = 300;
             const scalar h = 10;
-            const scalar k = 0.3; // 熱伝導率
+            const scalar k = 0.025; // 熱伝導率
 
             scalarField& Tp = *this;
             const fvPatch& patch = this->patch();
@@ -77,11 +77,13 @@ boundaryField
     }
     top
     {
-        type        mixed;
-        refValue    uniform 273+65;
-        refGradient uniform 0;
-        valueFraction   uniform 0.03; // K/h the ratio of heat conduction and convection
-        value       uniform 300; // initial value
+        //type            fixedValue;
+        //value           uniform 300;
+        type            mixed;
+        refValue        uniform 300; // 無限遠の温度
+        refGradient     uniform 0;     // 境界上の温度勾配の参照値
+        valueFraction   uniform 0.0004;//10 / (10+0.025/0.001);// h / (h + k / delta); // 値の重み付け
+        value           uniform 30; // 境界上の初期温度（任意）
     }
     frontAndBack
     {

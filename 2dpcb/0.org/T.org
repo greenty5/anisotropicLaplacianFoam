@@ -22,15 +22,30 @@ internalField   uniform 300;
 
 boundaryField
 {
-    top
-    {
-        //type            zeroGradient;
-        type            fixedValue;
-		value			uniform 300;
-    }
-    "*"
+    bottom
     {
         type            zeroGradient;
+    }
+    left
+    {
+        type            zeroGradient;
+    }
+    right
+    {
+        type            zeroGradient;
+    }
+    leftTop
+    {
+        type            zeroGradient;
+    }
+    rightTop
+    {
+        type            zeroGradient;
+    }
+    top
+    {
+        type            fixedValue;
+        value           uniform 300;
     }
     frontAndBack
     {

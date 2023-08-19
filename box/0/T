@@ -1,0 +1,88 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2306                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       volScalarField;
+    location    "0";
+    object      T;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+dimensions      [0 0 0 1 0 0 0];
+
+internalField   uniform 300;
+
+boundaryField
+{
+    in
+    {
+        //type            zeroGradient;
+        //type        fixedGradient;
+        //gradient    uniform 100/200; // q / lambda
+        type        fixedValue;
+        value       uniform 400;
+    }
+    out
+    {
+        //type            fixedValue;
+        //value           uniform 300;
+        
+        type            mixed;
+        refValue        uniform 300; // 無限遠の温度
+        refGradient     uniform 0;     // 境界上の温度勾配の参照値
+        //valueFraction   uniform 0.001;// 10/(10+200/1); // h/(h + k/delta); // 値の重み付け
+        valueFraction   uniform 0.03;// K/h = 0.3/10
+        value           uniform 300; // 境界上の初期温度（任意）
+                                    //
+        // type            codedMixed;
+        // valueFraction   uniform 1;
+        // refValue        uniform 0;
+        // refGradient     uniform 0;
+        // value           uniform 300; // 初期値
+
+        // name    codedPatchBC;   // name of generated BC
+
+        // code
+        // #{
+        //     const scalar T_inf = 300;
+        //     const scalar h = 10;
+        //     const scalar k = 200; // 熱伝導率
+
+        //     scalarField& Tp = *this;
+        //     //const fvPatch& patch = this->patch();
+        //     //const fvMesh& mesh = patch.boundaryMesh().mesh();
+        //     //const volScalarField& T_internal = mesh.lookupObject<volScalarField>("T"); // 温度フィールドへの参照を取得
+        //     //const fvPatchScalarField& T_boundaryField = T_internal.boundaryField()[patch.index()]; // 境界に隣接するセルの温度への参照を取得
+        //                                                                                            //
+        //     //const scalarField& delta = patch.deltaCoeffs();
+
+        //     forAll(Tp, faceI)
+        //     {
+        //         scalar ddelta = 1.0;
+        //         //scalar deltaValue = delta[faceI];
+        //         //scalar T_adj = T_boundaryField[faceI]; // 境界に隣接するセルの温度
+        //         //Tp[faceI] = (h * T_inf + k * T_adj / deltaValue) / (h + k / deltaValue);
+        //         Tp[faceI] = (h * T_inf + k * 300 / ddelta) / (h + k / ddelta);
+        //     }
+        // #};
+    }
+    walls
+    {
+        type            zeroGradient;
+    }
+    frontAndBack
+    {
+        type            empty;
+    }
+}
+
+
+// ************************************************************************* //

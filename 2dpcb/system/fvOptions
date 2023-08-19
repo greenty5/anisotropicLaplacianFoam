@@ -10,29 +10,25 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      fvOptions;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
-);
+heatSource
+{
+    type        scalarSemiImplicitSource; // Type of source
+    active      yes;                      // Activation switch
 
-regions
-(
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
+    scalarSemiImplicitSourceCoeffs
     {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
+        selectionMode   cellZone;//all;// Selection mode (could also be points, etc.)
+        cellZone        hSource;           // Name of the cell zone where heat is generated
 
-        fieldValues
-        (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
-        );
+        volumeMode      specific;//[values are given as [variable]/m3 // Mode of specification
+        injectionRateSuSp
+        {
+            T   (1.45e5 0);               // Source term (10 W/m^3, for example)
+        }
     }
-);
+}
 
-// ************************************************************************* //

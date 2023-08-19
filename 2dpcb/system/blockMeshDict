@@ -16,12 +16,12 @@ FoamFile
 
 scale   0.001;
 
-x1  4;
-x2  8.1;
-x3  12.1;
-y1  0.15;
-y2  1.20;
-y3  2.00;
+x1  8;
+x2  13.1;
+x3  21.1;
+y1  1.2;
+y2  2.8; // 1.6+1.2
+y3  3.8; // +1.0
 z0  1;
 
 vertices
@@ -66,15 +66,15 @@ vertices
 blocks
 (
     //hex (0 1 2 3 4 5 6 7) (20 20 1) simpleGrading (1 1 1)
-    hex (0 1 5 4 14 15 19 18) (20 20 1) simpleGrading (1 1 1)
-    hex (1 2 6 5 15 16 20 19) (20 20 1) simpleGrading (1 1 1)
-    hex (2 3 7 6 16 17 21 20) (20 20 1) simpleGrading (1 1 1)
+    hex (0 1 5 4 14 15 19 18)   (30 20 1) simpleGrading (1 1 1)
+    hex (1 2 6 5 15 16 20 19)   (30 20 1) simpleGrading (1 1 1)
+    hex (2 3 7 6 16 17 21 20)   (30 20 1) simpleGrading (1 1 1)
 
-    hex (4 5 9 8 18 19 23 22) (20 20 1) simpleGrading (1 1 1)
-    hex (5 6 10 9 19 20 24 23) (20 20 1) simpleGrading (1 1 1)
-    hex (6 7 11 10 20 21 25 24) (20 20 1) simpleGrading (1 1 1)
+    hex (4 5 9 8 18 19 23 22)   (30 25 1) simpleGrading (1 1 1)
+    hex (5 6 10 9 19 20 24 23)  (30 25 1) simpleGrading (1 1 1)
+    hex (6 7 11 10 20 21 25 24) (30 25 1) simpleGrading (1 1 1)
 
-	hex (9 10 13 12 23 24 27 26) (20 20 1) simpleGrading (1 1 1)
+	hex (9 10 13 12 23 24 27 26) (30 20 1) simpleGrading (1 1 1)
 );
 
 edges

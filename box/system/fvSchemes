@@ -10,52 +10,41 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      PDRblockMeshDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-scale   0.1;
-
-x
+ddtSchemes
 {
-    points  (0 1);
-    nCells  (20);
-    ratios  (1);
+    default         Euler;
 }
 
-y
+gradSchemes
 {
-    points  (0 1);
-    nCells  (20);
-    ratios  (1);
+    default         Gauss linear;
+    grad(p)         Gauss linear;
 }
 
-z
+divSchemes
 {
-    points  (0 0.1);
-    nCells  (1);
-    ratios  (1);
+    default         none;
+    div(phi,U)      Gauss linear;
 }
 
+laplacianSchemes
+{
+    default         Gauss linear orthogonal;
+}
 
-boundary
-(
-    movingWall
-    {
-        type  wall;
-        faces (3);
-    }
-    fixedWalls
-    {
-        type  wall;
-        faces (0 1 2);
-    }
-    frontAndBack
-    {
-        type  empty;
-        faces (4 5);
-    }
-);
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         orthogonal;
+}
 
 
 // ************************************************************************* //

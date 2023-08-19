@@ -10,29 +10,18 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      decomposeParDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
-);
+numberOfSubdomains  9;
 
-regions
-(
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
-    {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
+method  hierarchical;
 
-        fieldValues
-        (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
-        );
-    }
-);
+coeffs
+{
+    n   (3 3 1);
+}
+
 
 // ************************************************************************* //

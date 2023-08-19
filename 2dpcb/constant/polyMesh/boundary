@@ -22,50 +22,50 @@ FoamFile
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          60;
-        startFace       5480;
+        nFaces          90;
+        startFace       9145;
     }
     left
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          40;
-        startFace       5540;
+        nFaces          45;
+        startFace       9235;
     }
     right
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          40;
-        startFace       5580;
+        nFaces          45;
+        startFace       9280;
     }
     leftTop
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          20;
-        startFace       5620;
+        nFaces          30;
+        startFace       9325;
     }
     rightTop
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          20;
-        startFace       5640;
+        nFaces          30;
+        startFace       9355;
     }
     top
     {
         type            wall;
         inGroups        1(wall);
-        nFaces          60;
-        startFace       5660;
+        nFaces          70;
+        startFace       9385;
     }
     frontAndBack
     {
         type            empty;
         inGroups        1(empty);
-        nFaces          5600;
-        startFace       5720;
+        nFaces          9300;
+        startFace       9455;
     }
 )
 

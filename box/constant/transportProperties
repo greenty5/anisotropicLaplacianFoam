@@ -10,29 +10,11 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      transportProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
-);
+DT	              0.01;
 
-regions
-(
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
-    {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
-
-        fieldValues
-        (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
-        );
-    }
-);
 
 // ************************************************************************* //

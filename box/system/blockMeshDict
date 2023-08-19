@@ -10,29 +10,70 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      blockMeshDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
+scale   0.1;
+
+vertices
 (
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
+    (0 0 0)
+    (1 0 0)
+    (1 1 0)
+    (0 1 0)
+    (0 0 0.1)
+    (1 0 0.1)
+    (1 1 0.1)
+    (0 1 0.1)
 );
 
-regions
+blocks
 (
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
-    {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
+    hex (0 1 2 3 4 5 6 7) (60 20 1) simpleGrading (1 1 1)
+);
 
-        fieldValues
+edges
+(
+);
+
+boundary
+(
+    in
+    {
+        type wall;
+        faces
         (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
+            (0 4 7 3)
+        );
+    }
+    out
+    {
+        type wall;
+        faces
+        (
+            (2 6 5 1)
+        );
+    }
+    walls
+    {
+        type wall;
+        faces
+        (
+            (3 7 6 2)
+            (1 5 4 0)
+        );
+    }
+    frontAndBack
+    {
+        type empty;
+        faces
+        (
+            (0 3 2 1)
+            (4 5 6 7)
         );
     }
 );
+
 
 // ************************************************************************* //

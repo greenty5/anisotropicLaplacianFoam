@@ -10,28 +10,46 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      topoSetDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
-);
+//scale   0.001;
 
-regions
+x1  8e-3;
+x2  13.1e-3;
+x3  21.1e-3;
+y1  1.2e-3;
+y2  2.8e-3; // 1.6+1.2
+y3  3.8e-3; // +1.0
+z0  1e-3;
+
+actions
 (
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
     {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
-
-        fieldValues
-        (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
-        );
+        name    c0;
+        type    cellSet;
+        action  clear;
+    }
+    {
+        name    c0;
+        type    cellSet;
+        action  new;
+        source  boxToCell;
+        sourceInfo
+        {
+            box ($x1 $y2 0) ($x2 $y3 $z0); // Edit box bounds as required
+        }
+    }
+    {
+        name    hSource;
+        type    cellZoneSet;
+        action  new;
+        source  setToCellZone;
+        sourceInfo
+        {
+            set c0;
+        }
     }
 );
 

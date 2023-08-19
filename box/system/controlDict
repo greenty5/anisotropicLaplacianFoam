@@ -10,29 +10,41 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      setFieldsDict;
+    object      controlDict;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defaultFieldValues
-(
-    volSymmTensorFieldValue	DDT (0.3 0 0 0.3 0 0.3)
-);
+application     laplacianFoam;
 
-regions
-(
-    // Set cell values
-    // (does zerogradient on boundaries)
-    boxToCell
-    {
-        //box (0 0 0) (0.1 0.00009 0.1);
-        box (8e-3 2.8e-3 0) (13.1e-3 3.8e-3 0.1);
+startFrom       startTime;
 
-        fieldValues
-        (
-        	volSymmTensorFieldValue	DDT (0.141 0 0 0.141 0 0.141)
-        );
-    }
-);
+startTime       0;
+
+stopAt          endTime;
+
+endTime         10;
+
+deltaT          0.001;
+
+writeControl    runTime;//timeStep;
+
+writeInterval   0.5;//20;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression off;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable true;
+
+
+
 
 // ************************************************************************* //
