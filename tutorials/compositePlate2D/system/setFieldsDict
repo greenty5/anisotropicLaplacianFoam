@@ -1,0 +1,46 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     |                                                 |
+|   \\  /    A nd           |                                                 |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      setFieldsDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+defaultFieldValues
+(
+    volSymmTensorFieldValue kappa (1.0 0 0 0.3 0 0.3)
+    volScalarFieldValue rhoCp 2.0e6
+);
+
+regions
+(
+    cellToCell
+    {
+        set materialCore;
+        fieldValues
+        (
+            volSymmTensorFieldValue kappa (8.0 0 0 0.8 0 0.8)
+            volScalarFieldValue rhoCp 2.4e6
+        );
+    }
+
+    cellToCell
+    {
+        set materialInsert;
+        fieldValues
+        (
+            volSymmTensorFieldValue kappa (0.4 0 0 3.0 0 0.4)
+            volScalarFieldValue rhoCp 1.6e6
+        );
+    }
+);
+
+// ************************************************************************* //

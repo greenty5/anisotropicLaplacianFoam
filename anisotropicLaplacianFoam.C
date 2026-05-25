@@ -25,31 +25,34 @@ License
     along with OpenFOAM.  If not, see <http://www.gnu.org/licenses/>.
 
 Application
-    laplacianFoam
+    anisotropicLaplacianFoam
 
 Group
     grpBasicSolvers
 
 Description
-    Laplace equation solver for a scalar quantity.
+    Transient anisotropic heat conduction solver for stationary solids.
 
     \heading Solver details
-    The solver is applicable to, e.g. for thermal diffusion in a solid.  The
-    equation is given by:
+    The solver advances temperature in a stationary solid with volumetric heat
+    capacity and symmetric tensor thermal conductivity. The equation is given by:
 
     \f[
-        \ddt{T}  = \div \left( D_T \grad T \right)
+        \ddt{\rho C_p T} = \div \left( \kappa \grad T \right)
     \f]
 
     Where:
     \vartable
-        T     | Scalar field which is solved for, e.g. temperature
-        D_T   | Diffusion coefficient
+        T       | Temperature field
+        \kappa  | Symmetric tensor thermal conductivity
+        \rho C_p | Volumetric heat capacity
     \endvartable
 
     \heading Required fields
     \plaintable
-        T     | Scalar field which is solved for, e.g. temperature
+        T       | Temperature field
+        kappa   | Symmetric tensor thermal conductivity
+        rhoCp   | Volumetric heat capacity
     \endplaintable
 
 \*---------------------------------------------------------------------------*/
@@ -64,7 +67,8 @@ int main(int argc, char *argv[])
 {
     argList::addNote
     (
-        "Laplace equation solver for a scalar quantity."
+        "Transient anisotropic heat conduction solver for stationary solids. "
+        "Required fields: T, kappa, rhoCp."
     );
 
     #include "postProcess.H"
@@ -90,9 +94,9 @@ int main(int argc, char *argv[])
         {
             fvScalarMatrix TEqn
             (
-                fvm::ddt(T) - fvm::laplacian(DDT, T)
+                fvm::ddt(rhoCp, T) - fvm::laplacian(kappa, T)
              ==
-                fvOptions(T)
+                fvOptions(rhoCp, T)
             );
 
             fvOptions.constrain(TEqn);

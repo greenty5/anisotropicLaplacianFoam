@@ -13,54 +13,34 @@ volScalarField T
     mesh
 );
 
+Info<< "Reading conductivity kappa\n" << endl;
 
-Info<< "Reading diffusivity DT\n" << endl;
-
-/*
-volScalarField DT
+volSymmTensorField kappa
 (
     IOobject
     (
-        "DT",
+        "kappa",
         runTime.timeName(),
         mesh,
-        IOobject::READ_IF_PRESENT,
+        IOobject::MUST_READ,
         IOobject::AUTO_WRITE
     ),
-    mesh,
-    dimensionedScalar(dimViscosity, Zero)
+    mesh
 );
-*/
 
-volSymmTensorField DDT
+Info<< "Reading heat capacity rhoCp\n" << endl;
+
+volScalarField rhoCp
 (
-	IOobject
-	(
-		"DDT",
-		runTime.timeName(),
-		mesh,
-		IOobject::MUST_READ,
-		IOobject::AUTO_WRITE
-	),
-	mesh
-);
-
-/*
-if (!DT.headerOk())
-{
-    IOdictionary transportProperties
+    IOobject
     (
-        IOobject
-        (
-            "transportProperties",
-            runTime.constant(),
-            mesh,
-            IOobject::MUST_READ_IF_MODIFIED,
-            IOobject::NO_WRITE
-        )
-    );
-    DT = dimensionedScalar("DT", dimViscosity, transportProperties);
-}
-*/
+        "rhoCp",
+        runTime.timeName(),
+        mesh,
+        IOobject::MUST_READ,
+        IOobject::AUTO_WRITE
+    ),
+    mesh
+);
 
 #include "createFvOptions.H"

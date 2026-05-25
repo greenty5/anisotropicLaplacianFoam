@@ -1,3 +1,0 @@
-topoSet
-
-setsToZones -noFlipMap

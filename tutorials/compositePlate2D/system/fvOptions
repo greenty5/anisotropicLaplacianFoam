@@ -1,0 +1,32 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     |                                                 |
+|   \\  /    A nd           |                                                 |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      fvOptions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+heatGeneration
+{
+    type            scalarSemiImplicitSource;
+    active          yes;
+
+    selectionMode   cellZone;
+    cellZone        heatSource;
+    volumeMode      specific;
+
+    injectionRateSuSp
+    {
+        T           (1.0e6 0);
+    }
+}
+
+// ************************************************************************* //
